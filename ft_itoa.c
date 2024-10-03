@@ -6,73 +6,58 @@
 /*   By: trgoel <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 18:57:09 by trgoel            #+#    #+#             */
-/*   Updated: 2024/10/02 18:57:11 by trgoel           ###   ########.fr       */
+/*   Updated: 2024/10/03 17:42:33 by trgoel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
-int	len_helper(unsigned int len)
+int	get_len(int nbr)
 {
-	if (len >= 1000000000)
-		return (10);
-	else if (len >= 100000000)
-		return (9);
-	else if (len >= 10000000)
-		return (8);
-	else if (len >= 1000000)
-		return (7);
-	else if (len >= 100000)
-		return (6);
-	else if (len >= 10000)
-		return (5);
-	else if (len >= 1000)
-		return (4);
-	else if (len >= 100)
-		return (3);
-	else if (len >= 10)
-		return (2);
-	return (1);
+	int				len;
+	unsigned int	n;
+
+	len = 0;
+	if (nbr < 0)
+	{
+		len += 1;
+		n = nbr * -1;
+	}
+	else
+		n = nbr;
+	while (n > 9)
+	{
+		n /= 10;
+		len++;
+	}
+	return (len + 1);
 }
 
-char	*ft_conv(long n, char *array, int x)
+void	ft_putnbr_str(unsigned int nbr, char *new_arr, int index)
 {
-	array[x] = '\0';
-	while (n >= 0)
-	{
-		x--;
-		array[x] = (n % 10) + '0';
-		if (n < 10)
-			break ;
-		n = n / 10;
-	}
-	return (array);
+	if (nbr > 9)
+		ft_putnbr_str(nbr / 10, new_arr, index - 1);
+	new_arr[index - 1] = nbr % 10 + '0';
 }
 
 char	*ft_itoa(int n)
 {
-	char	*array;
-	int		x;
-	int		sign;
-	long	get_n;
+	char			*new_arr;
+	int				len;
+	unsigned int	nb;
 
-	get_n = n;
-	array = malloc(sizeof(char) * (len_helper(n) + 1));
-	if (!array)
+	len = get_len(n);
+	new_arr = (char *)malloc(sizeof(char) * len + 1);
+	if (!new_arr)
 		return (NULL);
-	sign = 1;
-	if (get_n < 0)
-		sign = -1;
-	get_n *= sign;
-	x = len_helper(get_n);
-	if (sign == -1)
+	new_arr[len] = 0;
+	if (n < 0)
 	{
-		x += 1;
-		array[0] = '-';
+		nb = n * -1;
+		new_arr[0] = '-';
 	}
-	array = ft_conv(get_n, array, x);
-	if (!array)
-		return (NULL);
-	return (array);
+	else
+		nb = n;
+	ft_putnbr_str(nb, new_arr, len);
+	return (new_arr);
 }
