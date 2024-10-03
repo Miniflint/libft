@@ -6,7 +6,7 @@
 /*   By: trgoel <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 18:58:11 by trgoel            #+#    #+#             */
-/*   Updated: 2024/10/02 18:58:12 by trgoel           ###   ########.fr       */
+/*   Updated: 2024/10/04 00:00:37 by trgoel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,12 @@ int	block_len(const char *s, char c)
 
 void	*array_free(char **array, int i)
 {
-	while (i > 0)
+	while (i >= 0)
 	{
 		free(array[i]);
 		i--;
 	}
-	free (array[i]);
+	free(array);
 	return (NULL);
 }
 
@@ -75,7 +75,7 @@ char	**ft_split(char const *s, char c)
 		while (*s == c && *s != '\0')
 			s++;
 		array[i] = ft_substr((char *)s, 0, block_len((char *)s, c));
-		if (!array)
+		if (!array[i])
 			return (array_free(array, i));
 		s = s + block_len((char *)s, c);
 		i++;

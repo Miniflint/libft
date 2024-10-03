@@ -6,7 +6,7 @@
 /*   By: trgoel <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 18:58:32 by trgoel            #+#    #+#             */
-/*   Updated: 2024/10/03 17:15:15 by trgoel           ###   ########.fr       */
+/*   Updated: 2024/10/03 22:07:57 by trgoel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 	if (s1 == NULL || s2 == NULL)
 		return (NULL);
-	cpy = (char *)malloc(sizeof(char *) * ft_strlen(s1) + ft_strlen(s2) + 1);
+	cpy = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!cpy)
 		return (NULL);
 	i = 0;
