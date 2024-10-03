@@ -32,7 +32,7 @@ fclean: clean
 	@rm -f $(NAME)
 
 so:
-	gcc $(CFLAGS) -c $(SRCS)
-	gcc -o libft.so $(OBJS)
+	gcc -nostartfiles -fPIC $(CFLAGS) -c $(SRCS)
+	gcc -nostartfiles -shared -o libft.so $(OBJS)
 
-.PHONY: clean
+.PHONY: clean fclean re all
